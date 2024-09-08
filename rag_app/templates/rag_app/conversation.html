@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with PDF</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-container h1 {
+            background-color: #6e8efb;
+            color: white;
+            padding: 20px;
+            font-size: 1.5em;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .messages {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .messages div {
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 75%;
+            word-wrap: break-word;
+        }
+
+        .messages .user-message {
+            background-color: #6e8efb;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .messages .bot-message {
+            background-color: #f1f1f1;
+            color: #333;
+            align-self: flex-start;
+        }
+
+        .input-container {
+            display: flex;
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        #chat-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #6e8efb;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #a777e3;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Chat with PDF: {{ pdf_name }}</h1>
+        <div class="messages" id="chat-messages">
+            <!-- Messages will be dynamically inserted here -->
+        </div>
+        <div class="input-container">
+            <input type="text" id="chat-input" placeholder="Ask something...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var inputField = document.getElementById('chat-input');
+            var message = inputField.value;
+            if (message.trim() === "") return;
+            
+            // Display user message
+            var messagesDiv = document.getElementById('chat-messages');
+            var userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'user-message';
+            userMessageDiv.textContent =message;
+            messagesDiv.appendChild(userMessageDiv);
+
+            // Send AJAX request to handle the query
+            fetch("{% url 'handle_query' %}", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: new URLSearchParams({
+                    'query': message,
+                    'pdf_name': "{{ pdf_name }}"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                var botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'bot-message';
+                botMessageDiv.textContent = data.response;
+                messagesDiv.appendChild(botMessageDiv);
+            });
+
+            // Clear input field
+            inputField.value = "";
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+    </script>
+</body>
+</html>

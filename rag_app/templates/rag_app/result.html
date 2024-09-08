@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conversation History</title>
+</head>
+<body>
+    <h1>Conversation History</h1>
+    <ul>
+        {% for entry in conversation_history %}
+            <li>
+                <strong>Query:</strong> {{ entry.query }}<br>
+                <strong>Response:</strong> {{ entry.response }}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'upload_pdf' %}">Upload another PDF</a>
+</body>
+</html>
