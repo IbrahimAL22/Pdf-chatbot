@@ -5,11 +5,11 @@ A powerful tool to interact with your PDFs using intelligent conversations. Whet
 
 ## Images
 
-1. **Home Page**
+1. **Upload your pdf**
 
     ![First Image](frontend/src/assets/First.png)
 
-2. **Upload your pdf**
+2. **Chat with your pdf**
 
     ![Second Image](frontend/src/assets/second.png)
 

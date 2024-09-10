@@ -12,9 +12,9 @@ from django.views.decorators.csrf import csrf_exempt
 # Load necessary models
 embedding_model = SentenceTransformer("all-mpnet-base-v2", device="cpu")
 nlp = spacy.load("en_core_web_sm")
-tokenizer = AutoTokenizer.from_pretrained("C:/Users/Ibrahim/Desktop/rag/Qwen")
+tokenizer = AutoTokenizer.from_pretrained("C:/Users/Ibrahim/Desktop/rag/Qwen1.5-1.8B-Chat")
 llm_model = AutoModelForCausalLM.from_pretrained(
-    "C:/Users/Ibrahim/Desktop/rag/Qwen", torch_dtype=torch.float16, device_map="auto" if torch.cuda.is_available() else "cpu"
+    "C:/Users/Ibrahim/Desktop/rag/Qwen1.5-1.8B-Chat", torch_dtype=torch.float16, device_map="auto" if torch.cuda.is_available() else "cpu"
 )
 
 @csrf_exempt
