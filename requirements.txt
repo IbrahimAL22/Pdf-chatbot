@@ -1,0 +1,5 @@
+Django==5.1
+fitz==0.0.1.dev2
+sentence_transformers==2.7.0
+spacy==3.7.6
+torch==2.4.0+cu124
