@@ -1,5 +1,8 @@
-Django==5.1
-fitz==0.0.1.dev2
-sentence_transformers==2.7.0
-spacy==3.7.6
-torch==2.4.0+cu124
+Django>=3.2,<4.0
+djangorestframework>=3.12,<4.0
+PyMuPDF>=1.18,<2.0
+spacy>=3.0,<4.0
+torch>=1.8,<2.0
+sentence-transformers>=2.0,<3.0
+transformers>=4.6,<5.0
+gunicorn>=20.1,<21.0
