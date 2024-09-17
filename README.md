@@ -3,7 +3,7 @@
 A powerful tool to interact with your PDFs using intelligent conversations. Whether you're trying to extract insights from documents, perform advanced searches, or just need a fast way to analyze content, ChatterGPT makes it easy. Explore various features like keyword highlighting, summary generation, and interactive Q&A tailored to your specific document needs.
 
 
-## Images
+## Images and Interfaces
 
 1. **Upload your pdf**
 
