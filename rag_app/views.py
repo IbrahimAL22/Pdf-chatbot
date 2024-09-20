@@ -46,8 +46,7 @@ def retrieve_relevant_resources(query: str, embeddings: torch.Tensor, model: Sen
 def ask(query: str, pages_and_chunks: list, embeddings: torch.Tensor, model: SentenceTransformer, llm_model, tokenizer, temperature: float = 0.7, max_new_tokens: int = 512, relevance_threshold: float = 0.3):
     scores, indices = retrieve_relevant_resources(query, embeddings, model)
     
-    if scores[0].item() < relevance_threshold:
-        return "I don't know the answer to that question based on the provided document."
+    
 
     context_items = [pages_and_chunks[i] for i in indices]
     context = "\n\n".join([f"- {item['sentence_chunk']}" for item in context_items])
